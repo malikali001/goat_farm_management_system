@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Records</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .container {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="text-center">Health Records</h2>
+      <div class="mb-3">
+        <a href="{% url 'health_create' %}" class="btn btn-primary"
+          >Add New Health Record</a
+        >
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Treatment</th>
+            <th>Goat</th>
+            <th>Manager</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for health in object_list %}
+          <tr>
+            <td>{{ health.date }}</td>
+            <td>{{ health.title }}</td>
+            <td>{{ health.description }}</td>
+            <td>{{ health.treatment }}</td>
+            <td>{{ health.goat }}</td>
+            <td>{{ health.manager }}</td>
+            <td>
+              <a
+                href="{% url 'health_detail' health.pk %}"
+                class="btn btn-info btn-sm"
+                >View</a
+              >
+              <a
+                href="{% url 'health_update' health.pk %}"
+                class="btn btn-warning btn-sm"
+                >Edit</a
+              >
+              <a
+                href="{% url 'health_delete' health.pk %}"
+                class="btn btn-danger btn-sm"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
