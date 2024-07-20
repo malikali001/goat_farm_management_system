@@ -11,4 +11,4 @@ class Goat(models.Model):
     manager = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.name)

@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from base.models.custom_users import CustomUser
+from base.models.goats import Goat
+from base.models.healths import Health
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -39,3 +41,5 @@ class CustomUserAdmin(BaseUserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Goat)
+admin.site.register(Health)
