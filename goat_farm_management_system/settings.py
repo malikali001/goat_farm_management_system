@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'base',
     'user',
     'goat',
+    'health',
 ]
 
 MIDDLEWARE = [
