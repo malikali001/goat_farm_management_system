@@ -18,6 +18,7 @@ class CustomLoginView(auth_views.LoginView):
 
 class CustomLogoutView(auth_views.LogoutView):
     template_name = 'registration/logout.html'
+    next_page = reverse_lazy('login')
 
 
 class UserListView(LoginRequiredMixin, ListView):
