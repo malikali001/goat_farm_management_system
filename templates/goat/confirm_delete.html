@@ -1,33 +1,46 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirm Delete</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <style>
-      .container {
-        margin-top: 50px;
-      }
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .text-danger {
+            font-size: 1.1em;
+        }
+        .btn {
+            font-weight: 500;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h2 class="text-center">Confirm Delete</h2>
-      <p class="text-center">
-        Are you sure you want to delete the goat
-        <strong>{{ object.name }}</strong>?
-      </p>
-      <form method="post" class="text-center">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Confirm</button>
-        <a href="{% url 'goat_list' %}" class="btn btn-secondary">Cancel</a>
-      </form>
+        <h2 class="text-center mb-4">Confirm Delete</h2>
+        <p class="text-center">
+            Are you sure you want to delete the goat
+            <strong>{{ object.name }}</strong>?
+        </p>
+        <form method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-lg">Confirm</button>
+            <a href="{% url 'goat_list' %}" class="btn btn-secondary btn-lg">Cancel</a>
+        </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>

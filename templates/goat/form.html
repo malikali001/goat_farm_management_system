@@ -1,55 +1,88 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>
-      {% if form.instance.pk %}Edit Goat{% else %}Add Goat{% endif %}
-    </title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
-    />
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% if form.instance.pk %}Edit Goat{% else %}Add Goat{% endif %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <style>
-      .container {
-        margin-top: 50px;
-      }
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: 600;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            box-shadow: none;
+            font-size: 16px;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+        .btn-primary {
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .text-danger {
+            font-size: 0.875em;
+            margin-top: 5px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h2 class="text-center">
-        {% if form.instance.pk %}Edit Goat{% else %}Add Goat{% endif %}
-      </h2>
-      <form method="post" class="mt-4">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="{{ form.name.id_for_label }}">Name</label>
-          {{ form.name }} {% if form.name.errors %}
-          <div class="text-danger">{{ form.name.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="form-group">
-          <label for="{{ form.breed.id_for_label }}">Breed</label>
-          {{ form.breed }} {% if form.breed.errors %}
-          <div class="text-danger">{{ form.breed.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="form-group">
-          <label for="{{ form.date_of_birth.id_for_label }}"
-            >Date of Birth</label
-          >
-          {{ form.date_of_birth }} {% if form.date_of_birth.errors %}
-          <div class="text-danger">{{ form.date_of_birth.errors }}</div>
-          {% endif %}
-        </div>
-        <button type="submit" class="btn btn-primary">
-          {% if form.instance.pk %}Update{% else %}Add{% endif %} Goat
-        </button>
-      </form>
+        <h2 class="text-center mb-4">
+            {% if form.instance.pk %}Edit Goat{% else %}Add Goat{% endif %}
+        </h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="text-danger">
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.breed.id_for_label }}">Breed</label>
+                {{ form.breed }}
+                {% if form.breed.errors %}
+                    <div class="text-danger">
+                        {{ form.breed.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth</label>
+                {{ form.date_of_birth }}
+                {% if form.date_of_birth.errors %}
+                    <div class="text-danger">
+                        {{ form.date_of_birth.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+                {% if form.instance.pk %}Update{% else %}Add{% endif %} Goat
+            </button>
+        </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -62,5 +95,5 @@
         });
       });
     </script>
-  </body>
+</body>
 </html>

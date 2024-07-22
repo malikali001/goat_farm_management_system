@@ -1,59 +1,105 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goat List</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-  </head>
-  <body>
-    <div class="container mt-5">
-        <a href="{% url 'dashboard' %}" class="btn btn-primary">back</a>
-      <h2 class="text-center">Goat List</h2>
-      <table class="table table-bordered mt-3">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Breed</th>
-            <th>Date of Birth</th>
-            <th>Manager</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for goat in goats %}
-          <tr>
-            <td>{{ goat.name }}</td>
-            <td>{{ goat.breed }}</td>
-            <td>{{ goat.date_of_birth }}</td>
-            <td>{{ goat.manager.email }}</td>
-            <td>
-              <a
-                href="{% url 'goat_detail' goat.id %}"
-                class="btn btn-info btn-sm"
-                >View</a
-              >
-              <a
-                href="{% url 'goat_update' goat.id %}"
-                class="btn btn-warning btn-sm"
-                >Edit</a
-              >
-              <a
-                href="{% url 'goat_delete' goat.id %}"
-                class="btn btn-danger btn-sm"
-                >Delete</a
-              >
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <a href="{% url 'goat_create' %}" class="btn btn-primary">Add Goat</a>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background: url("https://res.cloudinary.com/dmo9ndq3y/image/upload/v1721625701/istockphoto-1172650483-1024x1024_fgdkez.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 50px;
+            margin-bottom: 60px; /* Space for the footer */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .table thead th {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+        }
+        .table tbody td {
+            text-align: center;
+        }
+        .btn-sm {
+            margin: 0 2px;
+        }
+        .footer {
+            background-color: rgba(248, 249, 250, 0.95);
+            padding: 20px 0;
+            width: 100%;
+            box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #6c757d;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary mb-3">Back to Dashboard</a>
+        <h2 class="text-center mb-4">Goat List</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Breed</th>
+                    <th>Date of Birth</th>
+                    <th>Manager</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for goat in goats %}
+                <tr>
+                    <td>{{ goat.name }}</td>
+                    <td>{{ goat.breed }}</td>
+                    <td>{{ goat.date_of_birth }}</td>
+                    <td>{{ goat.manager.email }}</td>
+                    <td>
+                        <a href="{% url 'goat_detail' goat.id %}" class="btn btn-info btn-sm">View</a>
+                        <a href="{% url 'goat_update' goat.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'goat_delete' goat.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'goat_create' %}" class="btn btn-primary">Add Goat</a>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Goat Farm Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>

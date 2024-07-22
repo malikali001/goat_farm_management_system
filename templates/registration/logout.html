@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Logged Out</title>
@@ -9,23 +9,37 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <style>
+      body {
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+      }
       .container {
-        margin-top: 50px;
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .btn-primary {
+        border-radius: 0.25rem;
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h1 class="text-center">You have been logged out</h1>
-      <p class="text-center">
-        Thank you for visiting the Goat Farm Management System.
-      </p>
-      <div class="text-center">
-        <a href="{% url 'login' %}" class="btn btn-primary">Log in again</a>
-      </div>
+        <h1 class="display-4">You Have Been Logged Out</h1>
+        <p class="lead">
+            Thank you for visiting the Goat Farm Management System.
+        </p>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Log In Again</a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
