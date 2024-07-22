@@ -13,6 +13,12 @@ class GoatListView(LoginRequiredMixin, ListView):
     template_name = 'goat/list.html'
     context_object_name = 'goats'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(manager=self.request.user)
+        return queryset
+
 
 class GoatDetailView(LoginRequiredMixin, DetailView):
     model = Goat
