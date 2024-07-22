@@ -73,7 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'goat_farm_management_system.wsgi.application'
 
-
+LOGIN_URL = '/users/login/'
 AUTH_USER_MODEL = 'base.CustomUser'
 
 LOGIN_REDIRECT_URL = 'dashboard'
