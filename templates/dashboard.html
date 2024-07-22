@@ -61,41 +61,7 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#">{% if is_admin %} Admin {% else %} Manager {% endif %} Dashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-          {% if user.is_authenticated %}
-            {% if is_admin %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'user_list' %}">Users</a>
-              </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'goat_list' %}">Goats Records</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'health_list' %}">Health Records</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user_detail' user.id %}">
-                <img src="{% static 'path/to/profile/pic.jpg' %}" alt="Profile Picture" />
-                <span>{{ user.first_name }}</span>
-              </a>
-            </li>
-          {% endif %}
-        </ul>
-        {% if user.is_authenticated %}
-          <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
-          </form>
-        {% endif %}
-      </div>
-    </nav>
+    {% include 'navbar.html' %}
 
     <div class="container">
       <h1 class="text-center mt-4 mb-4">{% if is_admin %} Admin {% else %} Manager {% endif %} Dashboard</h1>
@@ -133,11 +99,7 @@
       </div>
     </div>
 
-    <footer class="footer mt-5">
-      <div class="container text-center">
-        <p class="text-muted">&copy; 2024 Goat Farm Management System. All rights reserved.</p>
-      </div>
-    </footer>
+    {% include 'footer.html' %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
