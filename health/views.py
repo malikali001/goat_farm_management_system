@@ -1,11 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.http import HttpResponseRedirect, HttpResponseServerError
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from .forms import HealthForm
 from base.models.healths import Health
-from base.models.goats import Goat
+from base.views import custom_error_view
+
+from .forms import HealthForm
 
 
 class HealthListView(LoginRequiredMixin, ListView):
@@ -19,11 +22,27 @@ class HealthListView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(manager=self.request.user)
         return queryset
 
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except Exception as e:
+            return custom_error_view(request, exception=e)
+
 
 class HealthDetailView(LoginRequiredMixin, DetailView):
     model = Health
     template_name = 'health/detail.html'
     context_object_name = 'health'
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse_lazy('health_list'))
+        except PermissionDenied:
+            return HttpResponseRedirect(reverse_lazy('health_list'))
+        except Exception as e:
+            return custom_error_view(request, exception=e)
 
 
 class HealthCreateView(LoginRequiredMixin, CreateView):
@@ -41,6 +60,12 @@ class HealthCreateView(LoginRequiredMixin, CreateView):
         form.instance.manager = self.request.user
         return super().form_valid(form)
 
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except Exception as e:
+            return custom_error_view(request, exception=e)
+
 
 class HealthUpdateView(LoginRequiredMixin, UpdateView):
     model = Health
@@ -50,7 +75,7 @@ class HealthUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user  # Pass the user to the form
+        kwargs['user'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -58,8 +83,28 @@ class HealthUpdateView(LoginRequiredMixin, UpdateView):
             form.instance.manager = self.request.user
         return super().form_valid(form)
 
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse_lazy('health_list'))
+        except PermissionDenied:
+            return HttpResponseRedirect(reverse_lazy('health_list'))
+        except Exception as e:
+            return custom_error_view(request, exception=e)
+
 
 class HealthDeleteView(LoginRequiredMixin, DeleteView):
     model = Health
     template_name = 'health/confirm_delete.html'
     success_url = reverse_lazy('health_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse_lazy('health_list'))
+        except PermissionDenied:
+            return HttpResponseRedirect(reverse_lazy('health_list'))
+        except Exception as e:
+            return custom_error_view(request, exception=e)
