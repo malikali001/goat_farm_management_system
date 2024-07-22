@@ -5,50 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% if health.pk %}Edit Health Record{% else %}Add Health Record{% endif %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url("https://res.cloudinary.com/dmo9ndq3y/image/upload/v1721628109/istockphoto-919517894-1024x1024_1_tt4asg.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
         .container {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly opaque for better readability */
+            padding: 30px;
+            border-radius: 12px;
             margin-top: 50px;
+            margin-bottom: 60px; /* Space for the footer */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        .form-group label {
+            font-weight: 500;
+        }
+        .form-control {
+            border-radius: 0.25rem;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .text-danger {
+            font-size: 0.875rem;
+        }
+        .footer {
+            background-color: rgba(248, 249, 250, 0.95); /* Slightly more opaque for consistency */
+            padding: 20px 0;
+            width: 100%;
+            box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">{% if health.pk %}Edit{% else %}Add{% endif %} Health Record</h2>
-        <form method="post" class="mt-4">
+        <h2 class="text-center mb-4">
+            {% if health.pk %}Edit{% else %}Add{% endif %} Health Record
+        </h2>
+        <form method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.date.id_for_label }}">Date</label>
-                {{ form.date }} {% if form.date.errors %}
+                {{ form.date|safe }}
+                {% if form.date.errors %}
                 <div class="text-danger">{{ form.date.errors }}</div>
                 {% endif %}
             </div>
             <div class="form-group">
                 <label for="{{ form.title.id_for_label }}">Title</label>
-                {{ form.title }} {% if form.title.errors %}
+                {{ form.title|safe }}
+                {% if form.title.errors %}
                 <div class="text-danger">{{ form.title.errors }}</div>
                 {% endif %}
             </div>
             <div class="form-group">
                 <label for="{{ form.description.id_for_label }}">Description</label>
-                {{ form.description }} {% if form.description.errors %}
+                {{ form.description|safe }}
+                {% if form.description.errors %}
                 <div class="text-danger">{{ form.description.errors }}</div>
                 {% endif %}
             </div>
             <div class="form-group">
                 <label for="{{ form.treatment.id_for_label }}">Treatment</label>
-                {{ form.treatment }} {% if form.treatment.errors %}
+                {{ form.treatment|safe }}
+                {% if form.treatment.errors %}
                 <div class="text-danger">{{ form.treatment.errors }}</div>
                 {% endif %}
             </div>
             <div class="form-group">
                 <label for="{{ form.goat.id_for_label }}">Goat</label>
-                {{ form.goat }} {% if form.goat.errors %}
+                {{ form.goat|safe }}
+                {% if form.goat.errors %}
                 <div class="text-danger">{{ form.goat.errors }}</div>
                 {% endif %}
             </div>
             <div class="form-group">
                 <label for="{{ form.manager.id_for_label }}">Manager</label>
-                {{ form.manager }} {% if form.manager.errors %}
+                {{ form.manager|safe }}
+                {% if form.manager.errors %}
                 <div class="text-danger">{{ form.manager.errors }}</div>
                 {% endif %}
             </div>
@@ -57,6 +111,13 @@
             </button>
         </form>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Goat Farm Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

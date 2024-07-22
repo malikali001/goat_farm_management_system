@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,19 +9,83 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: url("https://res.cloudinary.com/dmo9ndq3y/image/upload/v1721628100/istockphoto-1365640281-1024x1024_bg0f9p.jpg") no-repeat center center fixed;
+        background-size: cover;
+        padding-bottom: 60px; /* Space for the footer */
+        color: #333;
+      }
       .container {
+        background-color: rgba(255, 255, 255, 0.95); /* Slightly opaque for better readability */
+        padding: 30px;
+        border-radius: 12px;
         margin-top: 50px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      }
+      .btn {
+        font-weight: 500;
+        border-radius: 4px;
+        margin: 5px;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
+      .heading {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      .description {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      .dl-horizontal dt {
+        font-weight: 500;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .dl-horizontal dd {
+        margin-left: 0;
+        text-align: left;
+      }
+      .footer {
+        background-color: rgba(248, 249, 250, 0.95); /* Slightly more opaque for consistency */
+        padding: 20px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+      }
+      .footer p {
+        margin: 0;
+        font-size: 14px;
+        color: #6c757d;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h2 class="text-center">Confirm Deletion</h2>
+      <h2 class="text-center heading">Confirm Deletion</h2>
       <form method="post">
         {% csrf_token %}
-        <p>Are you sure you want to delete the following health record?</p>
-        <dl class="row">
+        <p class="text-center description">Are you sure you want to delete the following health record?</p>
+        <dl class="row dl-horizontal">
           <dt class="col-sm-3">Date</dt>
           <dd class="col-sm-9">{{ health.date }}</dd>
           <dt class="col-sm-3">Title</dt>
@@ -34,10 +99,19 @@
           <dt class="col-sm-3">Manager</dt>
           <dd class="col-sm-9">{{ health.manager }}</dd>
         </dl>
-        <button type="submit" class="btn btn-danger">Confirm Delete</button>
-        <a href="{% url 'health_list' %}" class="btn btn-secondary">Cancel</a>
+        <div class="text-center">
+          <button type="submit" class="btn btn-danger">Confirm Delete</button>
+          <a href="{% url 'health_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
       </form>
     </div>
+
+    <footer class="footer">
+      <div class="container text-center">
+        <p class="text-muted">&copy; 2024 Goat Farm Management System. All rights reserved.</p>
+      </div>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

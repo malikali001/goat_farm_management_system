@@ -10,70 +10,134 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: url('https://res.cloudinary.com/dmo9ndq3y/image/upload/v1721625701/istockphoto-146776721-1024x1024_eo50hw.jpg') no-repeat center center fixed;
+        background-size: cover;
+      }
+      .navbar {
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+      }
       .container {
         margin-top: 50px;
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .card {
+        margin: 15px 0;
+      }
+      .footer {
+        background-color: rgba(248, 249, 250, 0.8); /* Semi-transparent background */
+        padding: 20px 0;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+      .footer p {
+        margin: 0;
+      }
+      h1, h2, p {
+        color: #333;
+      }
+      .navbar-brand {
+        color: #333 !important;
+      }
+      .nav-item .nav-link {
+        display: flex;
+        align-items: center;
+      }
+      .nav-item .nav-link img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      .nav-item .nav-link span {
+        font-weight: 500;
+        color: #333;
       }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"
-        >{% if is_admin %} Admin {% else %} Manager {% endif %} Dashboard</a
-      >
-      <div class="collapse navbar-collapse">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#">{% if is_admin %} Admin {% else %} Manager {% endif %} Dashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-          {% if user.is_authenticated %} {%if is_admin %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'user_list' %}">Users</a>
-          </li>
+          {% if user.is_authenticated %}
+            {% if is_admin %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_list' %}">Users</a>
+              </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'goat_list' %}">Goats Records</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'health_list' %}">Health Records</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user_detail' user.id %}">
+                <img src="{% static 'path/to/profile/pic.jpg' %}" alt="Profile Picture" />
+                <span>{{ user.first_name }}</span>
+              </a>
+            </li>
           {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'goat_list' %}">Goats Records</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'health_list' %}"
-              >Health Records</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-uppercase" href="{% url 'user_detail' user.id %}">{{ user.first_name }}</a>
-          </li>
         </ul>
-        <form
-          class="form-inline my-2 my-lg-0"
-          method="post"
-          action="{% url 'logout' %}"
-        >
-          {% csrf_token %}
-          <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-            Logout
-          </button>
-        </form>
+        {% if user.is_authenticated %}
+          <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+          </form>
         {% endif %}
       </div>
     </nav>
 
     <div class="container">
-      <h1 class="text-center">
-        {% if is_admin %} Admin {% else %} Manager {% endif %} Dashboard
-      </h1>
+      <h1 class="text-center mt-4 mb-4">{% if is_admin %} Admin {% else %} Manager {% endif %} Dashboard</h1>
+      <p class="text-center">Welcome to the Goat Farm Management System dashboard. Here you can manage and monitor all aspects of goat care and health records. Use the links below to navigate through different sections.</p>
       <div class="row">
-        {%if is_admin %}
-        <div class="col-md-4">
-          <h2><a href="{% url 'user_list' %}">Users</a></h2>
-          <p>View and manage users.</p>
-        </div>
+        {% if is_admin %}
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Users</h5>
+                <p class="card-text">View, add, and manage user accounts with ease. Admins have full control over user permissions and roles.</p>
+                <a href="{% url 'user_list' %}" class="btn btn-primary">Manage Users</a>
+              </div>
+            </div>
+          </div>
         {% endif %}
         <div class="col-md-4">
-          <h2><a href="{% url 'goat_list' %}">Goats</a></h2>
-          <p>View and manage goats.</p>
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Goats</h5>
+              <p class="card-text">View detailed records of all goats. Track their growth, breeding, and overall management.</p>
+              <a href="{% url 'goat_list' %}" class="btn btn-primary">Manage Goats</a>
+            </div>
+          </div>
         </div>
         <div class="col-md-4">
-          <h2><a href="{% url 'health_list' %}">Health Records</a></h2>
-          <p>View and manage health records.</p>
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Health Records</h5>
+              <p class="card-text">Access and manage health records for each goat. Monitor their health and manage medical history.</p>
+              <a href="{% url 'health_list' %}" class="btn btn-primary">Manage Health Records</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <footer class="footer mt-5">
+      <div class="container text-center">
+        <p class="text-muted">&copy; 2024 Goat Farm Management System. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
