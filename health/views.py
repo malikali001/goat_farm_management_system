@@ -5,12 +5,19 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 
 from .forms import HealthForm
 from base.models.healths import Health
+from base.models.goats import Goat
 
 
 class HealthListView(LoginRequiredMixin, ListView):
     model = Health
     template_name = 'health/list.html'
     context_object_name = 'health_records'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(manager=self.request.user)
+        return queryset
 
 
 class HealthDetailView(LoginRequiredMixin, DetailView):
@@ -25,6 +32,11 @@ class HealthCreateView(LoginRequiredMixin, CreateView):
     template_name = 'health/form.html'
     success_url = reverse_lazy('health_list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = 'admin' if self.request.user.is_superuser else self.request.user
+        return kwargs
+
     def form_valid(self, form):
         form.instance.manager = self.request.user
         return super().form_valid(form)
@@ -35,6 +47,11 @@ class HealthUpdateView(LoginRequiredMixin, UpdateView):
     form_class = HealthForm
     template_name = 'health/form.html'
     success_url = reverse_lazy('health_list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # Pass the user to the form
+        return kwargs
 
     def form_valid(self, form):
         if not form.instance.pk:

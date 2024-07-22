@@ -10,6 +10,7 @@
   </head>
   <body>
     <div class="container mt-5">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">back</a>
       <h2 class="text-center">User Detail</h2>
       <table class="table table-bordered mt-3">
         <tr>
@@ -37,7 +38,9 @@
           <td>{{ user.is_active }}</td>
         </tr>
       </table>
+      {% if user.is_staff %}
       <a href="{% url 'user_list' %}" class="btn btn-secondary">Back to List</a>
+      {% endif %}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

@@ -1,4 +1,6 @@
 from django import forms
+
+from base.models.goats import Goat
 from base.models.healths import Health
 
 
@@ -13,3 +15,9 @@ class HealthForm(forms.ModelForm):
             'treatment': forms.TextInput(attrs={'class': 'form-control'}),
             'goat': forms.Select(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        if user != 'admin':
+            self.fields['goat'].queryset = Goat.objects.filter(manager=user)

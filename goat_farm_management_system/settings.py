@@ -76,6 +76,8 @@ WSGI_APPLICATION = 'goat_farm_management_system.wsgi.application'
 
 AUTH_USER_MODEL = 'base.CustomUser'
 
+LOGIN_REDIRECT_URL = 'dashboard'
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 

@@ -13,10 +13,11 @@ from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 class CustomLoginView(auth_views.LoginView):
     template_name = 'registration/login.html'
+    redirect_authenticated_user = True
 
 
 class CustomLogoutView(auth_views.LogoutView):
-    template_name = 'registration/logged_out.html'
+    template_name = 'registration/logout.html'
 
 
 class UserListView(LoginRequiredMixin, ListView):
