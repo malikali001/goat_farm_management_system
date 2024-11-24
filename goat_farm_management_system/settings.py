@@ -85,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'myuser',
-        'PASSWORD': 'mypassword',
-        'HOST': 'db',
+        'USER': 'postgres',
+        'PASSWORD': '626Husnain',
+        'HOST': 'goat-farm-database.cdykoq0sgq2u.us-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
