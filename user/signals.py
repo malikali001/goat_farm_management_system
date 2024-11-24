@@ -13,4 +13,4 @@ def send_welcome_email(sender, instance, created, **kwargs):
         message = f'Hi {instance.first_name},\n\nWelcome to Goat Farm Management System! Your account has been created successfully.'
         from_email = 'examle@gmail.com'
         recipient_list = [instance.email]
-        send_mail(subject, message, from_email, recipient_list)
+        # send_mail(subject, message, from_email, recipient_list)
