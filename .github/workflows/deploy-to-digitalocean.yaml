@@ -1,0 +1,36 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.DIGITALOCEAN_SSH_PRIVATE_KEY }}
+
+    # Step 3: Deploy Docker Image
+    - name: Deploy Docker Image to DigitalOcean
+      run: |
+        # SSH into the Droplet and execute deployment commands
+        ssh -o StrictHostKeyChecking=no ${{ secrets.DIGITALOCEAN_SSH_USER }}@${{ secrets.DIGITALOCEAN_SERVER_IP }} << 'EOF'
+          # Pull the latest Docker image from Docker Hub
+          docker pull ${{ secrets.DOCKER_USERNAME }}/demo-project:latest
+
+          # Stop and remove the existing container (if any)
+          docker stop django-app || true
+          docker rm django-app || true
+
+          # Run the Docker container with the pulled image
+          docker run  -d --env-file ./.cred/.env --name django-app -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/demo-project:latest sh -c "./entrypoint.sh"
+        EOF
