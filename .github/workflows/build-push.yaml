@@ -39,7 +39,7 @@ jobs:
 
 
     - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.8.1
+      uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.DIGITALOCEAN_SSH_PRIVATE_KEY }}
 
